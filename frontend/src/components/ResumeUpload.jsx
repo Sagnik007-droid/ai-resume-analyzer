@@ -25,7 +25,7 @@ function ResumeUpload() {
         try {
             setMessage("Uploading resume...");
 
-            const response = await fetch("http://localhost:5000/upload", {
+            const response = await fetch("https://ai-resume-analyzer-3xoi.onrender.com/upload", {
                 method: "POST",
                 body: formData,
             });

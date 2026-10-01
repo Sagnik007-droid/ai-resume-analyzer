@@ -8,8 +8,8 @@ function Dashboard() {
 
     useEffect(() => {
         Promise.all([
-            fetch("http://localhost:5000/dashboard"),
-            fetch("http://localhost:5000/resumes")
+            fetch("https://ai-resume-analyzer-3xoi.onrender.com/dashboard"),
+            fetch("https://ai-resume-analyzer-3xoi.onrender.com/resumes")
         ])
             .then(async ([statsResponse, resumesResponse]) => {
                 const statsData = await statsResponse.json();

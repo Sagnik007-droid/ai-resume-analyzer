@@ -6,7 +6,7 @@ function ResumeHistory() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:5000/resumes")
+        fetch("https://ai-resume-analyzer-3xoi.onrender.com/resumes")
             .then((response) => response.json())
             .then((data) => {
                 setResumes(data);

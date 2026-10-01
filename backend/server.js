@@ -108,7 +108,7 @@ app.post("/upload", upload.single("resume"), async (req, res) => {
         console.error("Resume analysis error:", error);
 
         res.status(500).json({
-            message: "Resume uploaded, but AI analysis failed.",
+            message: "Resume uploaded, but AI analysis failed. Please try again later.",
             error: error.message
         });
     }
