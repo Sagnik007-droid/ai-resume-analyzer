@@ -58,7 +58,7 @@ function ResumeHistory() {
                     resumes.map((resume) => (
                         <article className="job-card" key={resume.id}>
                             <div className="job-card-top">
-                                <div className="job-icon">📄</div>
+                                <div className="job-icon"><img src="/images/pdf.png"/></div>
 
                                 <span className="job-level">
                                     Analyzed

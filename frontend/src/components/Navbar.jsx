@@ -1,19 +1,38 @@
+import { Link } from "react-router-dom";
+
 function Navbar() {
     return (
-        <nav>
-            <div>
-                <h1>AI Resume Analyzer</h1>
-            </div>
+        <header className="site-navbar">
+            <div className="navbar-inner">
 
-            <div>
-                <a href="/">Home</a>
-                <a href="/dashboard">Dashboard</a>
-                <a href="/analysis">Analyze Resume</a>
-                <a href="/jobs">Job Recommendations</a>
-                <a href="/history">Resume History</a>
+                <Link to="/" className="brand">
+                    <div className="brand-mark">
+                        AI
+                    </div>
+
+                    <div className="brand-text">
+                        <strong>ResumeAI</strong>
+                        <span>Smart resume analysis</span>
+                    </div>
+                </Link>
+
+                <nav className="navbar-links">
+                    <Link to="/">Home</Link>
+                    <Link to="/dashboard">Dashboard</Link>
+                    <Link to="/history">My Resumes</Link>
+                    <Link to="/jobs">Job Matches</Link>
+                </nav>
+
+                <Link
+                    to="/"
+                    className="navbar-cta"
+                >
+                    Analyze Resume
+                </Link>
+
             </div>
-        </nav>
-    )
+        </header>
+    );
 }
 
-export default Navbar
+export default Navbar;

@@ -5,6 +5,7 @@ function Dashboard() {
     const [stats, setStats] = useState(null);
     const [resumes, setResumes] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         Promise.all([
@@ -12,6 +13,10 @@ function Dashboard() {
             fetch("https://ai-resume-analyzer-3xoi.onrender.com/resumes")
         ])
             .then(async ([statsResponse, resumesResponse]) => {
+
+                if(!statsResponse.ok || !resumesResponse.ok) {
+                    throw new Error("Could not load dasghboard data.");
+                }
                 const statsData = await statsResponse.json();
                 const resumesData = await resumesResponse.json();
 
@@ -21,6 +26,7 @@ function Dashboard() {
             })
             .catch((error) => {
                 console.error("Could not load dashboard:", error);
+                setError("We couldn't load your dashboard right now.");
                 setLoading(false);
             });
     }, []);
@@ -51,7 +57,7 @@ function Dashboard() {
             <section className="dashboard-header">
                 <p className="jobs-label">AI RESUME ANALYZER</p>
 
-                <h1>Dashboard</h1>
+                <h1>Resume Dashboard</h1>
 
                 <p>
                     Overview of your resume analysis activity.
@@ -68,7 +74,7 @@ function Dashboard() {
                     <div className="dashboard-stats">
 
                         <article className="dashboard-stat-card">
-                            <div className="dashboard-stat-icon">📄</div>
+                            <div className="dashboard-stat-icon"><img src="/images/pdf.png"></img></div>
 
                             <div>
                                 <h2>{stats.total_resumes}</h2>
@@ -120,7 +126,8 @@ function Dashboard() {
                                         <div className="recent-resume-info">
 
                                             <div className="recent-resume-icon">
-                                                📄
+                                                <img
+                                                src="/images/pdf.png"/>
                                             </div>
 
                                             <div>
