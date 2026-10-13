@@ -21,6 +21,14 @@ https://ai-resume-analyzer-frontend-k7sy.onrender.com
 - 🗄️ PostgreSQL database storage
 - 🌐 Deployed frontend and backend
 
+## 🎯 Project Objective
+
+To help job seekers understand their resume's strengths, identify improvement opportunities, and better prepare their resumes for Applicant Tracking Systems (ATS).
+
+## 👨‍💻 Developer
+
+Sagnik Manna
+
 ## 🛠️ Tech Stack
 
 ### Frontend
