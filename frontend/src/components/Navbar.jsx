@@ -34,7 +34,7 @@ function Navbar() {
                 </nav>
                 <div className="navbar-account-actions">
                     <Link to="/" className="navbar-cta">Analyze Resume</Link>
-                    {user ? <button type="button" className="navbar-logout" onClick={logout}>Sign out</button> : <span className="navbar-logout">Public access</span>}
+                    {user ? <button type="button" className="navbar-logout" onClick={logout}>Sign out</button> : <Link to="/account" className="navbar-logout">Sign in</Link>}
                 </div>
             </div>
         </header>
