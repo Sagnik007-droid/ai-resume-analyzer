@@ -89,7 +89,7 @@ function setSessionCookie(res, user) {
     res.cookie(COOKIE_NAME, createSessionToken(user), {
         httpOnly: true,
         secure: IS_PRODUCTION,
-        sameSite: "lax",
+        sameSite: IS_PRODUCTION ? "none" : "lax",
         path: "/",
         maxAge: SESSION_MAX_AGE
     });
@@ -99,7 +99,7 @@ function clearSessionCookie(res) {
     res.clearCookie(COOKIE_NAME, {
         httpOnly: true,
         secure: IS_PRODUCTION,
-        sameSite: "lax",
+        sameSite: IS_PRODUCTION ? "none" : "lax",
         path: "/"
     });
 }
