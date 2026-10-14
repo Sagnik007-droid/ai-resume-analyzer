@@ -21,6 +21,16 @@ https://ai-resume-analyzer-frontend-k7sy.onrender.com
 - 🗄️ PostgreSQL database storage
 - 🌐 Deployed frontend and backend
 
+## 🔐 Account Security
+
+- Email/password registration and sign-in.
+- Passwords are stored as salted scrypt hashes, not plaintext.
+- HTTP-only signed session cookies protect resume upload, history, and dashboard API routes.
+- Each resume is associated with its owner; history and dashboard queries are filtered by the signed-in user's ID.
+- Existing resume rows are not automatically assigned to any account. They remain hidden until deliberately reviewed and migrated by the database owner.
+- Configure `AUTH_SECRET` (at least 32 random characters), `DATABASE_URL`, `NODE_ENV=production`, and `FRONTEND_URL` in the backend environment. Set `VITE_API_URL` in the frontend environment if your backend URL differs from the default.
+- Never commit real API keys, database credentials, or `.env` files.
+
 ## 🎯 Project Objective
 
 To help job seekers understand their resume's strengths, identify improvement opportunities, and better prepare their resumes for Applicant Tracking Systems (ATS).
