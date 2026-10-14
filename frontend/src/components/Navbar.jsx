@@ -1,7 +1,16 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { API_BASE } from "../api.js";
 
 function Navbar() {
+    const [user, setUser] = useState(null);
+    useEffect(() => {
+        fetch(API_BASE + "/auth/me", { credentials: "include" })
+            .then((response) => response.ok ? response.json() : null)
+            .then((data) => setUser(data?.user || null))
+            .catch(() => setUser(null));
+    }, []);
+
     async function logout() {
         try {
             await fetch(API_BASE + "/auth/logout", { method: "POST", credentials: "include" });
@@ -25,7 +34,7 @@ function Navbar() {
                 </nav>
                 <div className="navbar-account-actions">
                     <Link to="/" className="navbar-cta">Analyze Resume</Link>
-                    <button type="button" className="navbar-logout" onClick={logout}>Sign out</button>
+                    {user ? <button type="button" className="navbar-logout" onClick={logout}>Sign out</button> : <span className="navbar-logout">Public access</span>}
                 </div>
             </div>
         </header>
