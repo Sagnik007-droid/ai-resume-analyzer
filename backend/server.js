@@ -104,6 +104,11 @@ function clearSessionCookie(res) {
     });
 }
 
+function optionalAuth(req, res, next) {
+    req.user = verifySessionToken(parseCookies(req)[COOKIE_NAME]);
+    next();
+}
+
 function requireAuth(req, res, next) {
     const user = verifySessionToken(parseCookies(req)[COOKIE_NAME]);
     if (!user) return res.status(401).json({ message: "Please sign in to access your account." });
@@ -193,7 +198,7 @@ app.post("/auth/logout", (req, res) => {
     res.json({ message: "Signed out successfully." });
 });
 
-app.post("/upload", requireAuth, upload.single("resume"), async (req, res) => {
+app.post("/upload", optionalAuth, upload.single("resume"), async (req, res) => {
     if (!req.file) return res.status(400).json({ message: "Please upload a PDF resume." });
 
     try {
@@ -201,11 +206,17 @@ app.post("/upload", requireAuth, upload.single("resume"), async (req, res) => {
         const data = await pdfParse(dataBuffer);
         const resumeText = data.text;
         const analysis = await analyzeResume(resumeText);
-        const query = "INSERT INTO resumes (user_id, filename, resume_text, analysis) VALUES ($1, $2, $3, $4) RETURNING id, filename, created_at";
-        const result = await pool.query(query, [req.user.id, req.file.originalname, resumeText, analysis]);
+        // Public visitors can analyze a resume without creating an account.
+        // Only persist the resume when a verified user session exists.
+        let savedResumeId = null;
+        if (req.user) {
+            const query = "INSERT INTO resumes (user_id, filename, resume_text, analysis) VALUES ($1, $2, $3, $4) RETURNING id";
+            const result = await pool.query(query, [req.user.id, req.file.originalname, resumeText, analysis]);
+            savedResumeId = result.rows[0].id;
+        }
         res.json({
             message: "Resume analyzed successfully!",
-            id: result.rows[0].id,
+            id: savedResumeId,
             filename: req.file.originalname,
             text: resumeText,
             analysis
