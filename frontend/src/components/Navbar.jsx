@@ -6,6 +6,9 @@ function Navbar() {
         try {
             await fetch(API_BASE + "/auth/logout", { method: "POST", credentials: "include" });
         } finally {
+            localStorage.removeItem("resumeAnalysis");
+            localStorage.removeItem("resumeText");
+            localStorage.removeItem("resumeFilename");
             window.location.href = "/";
         }
     }
