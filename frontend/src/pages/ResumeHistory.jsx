@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar.jsx";
+import { API_BASE } from "../api.js";
 
 function ResumeHistory() {
     const [resumes, setResumes] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("https://ai-resume-analyzer-3xoi.onrender.com/resumes")
-            .then((response) => response.json())
+        fetch(API_BASE + "/resumes", { credentials: "include" })
+            .then((response) => { if (!response.ok) throw new Error("Could not load resume history."); return response.json(); })
             .then((data) => {
                 setResumes(data);
                 setLoading(false);

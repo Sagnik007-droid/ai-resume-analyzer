@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_BASE } from "../api.js";
 
 function ResumeUpload() {
     const [file, setFile] = useState(null);
@@ -50,9 +51,10 @@ function ResumeUpload() {
             setMessage("");
 
             const response = await fetch(
-                "https://ai-resume-analyzer-3xoi.onrender.com/upload",
+                API_BASE + "/upload",
                 {
                     method: "POST",
+                    credentials: "include",
                     body: formData,
                 }
             );
