@@ -147,7 +147,7 @@ app.get("/", (req, res) => {
 app.post("/auth/register", async (req, res) => {
     const email = typeof req.body?.email === "string" ? req.body.email.trim().toLowerCase() : "";
     const password = typeof req.body?.password === "string" ? req.body.password : "";
-    if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) return res.status(400).json({ message: "Enter a valid email address." });
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ message: "Enter a valid email address." });
     if (password.length < 8) return res.status(400).json({ message: "Password must be at least 8 characters long." });
     if (password.length > 128) return res.status(400).json({ message: "Password is too long." });
 
