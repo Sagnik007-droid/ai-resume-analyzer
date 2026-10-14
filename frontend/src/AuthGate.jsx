@@ -37,6 +37,9 @@ export default function AuthGate({ children }) {
             });
             const data = await response.json();
             if (!response.ok) throw new Error(data.message || "Authentication failed.");
+            localStorage.removeItem("resumeAnalysis");
+            localStorage.removeItem("resumeText");
+            localStorage.removeItem("resumeFilename");
             setUser(data.user);
         } catch (error) {
             setMessage(error.message || "Could not connect to the server.");
