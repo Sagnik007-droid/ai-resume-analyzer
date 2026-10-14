@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar.jsx";
+import { API_BASE } from "../api.js";
 
 function Dashboard() {
     const [stats, setStats] = useState(null);
@@ -9,8 +10,8 @@ function Dashboard() {
 
     useEffect(() => {
         Promise.all([
-            fetch("https://ai-resume-analyzer-3xoi.onrender.com/dashboard"),
-            fetch("https://ai-resume-analyzer-3xoi.onrender.com/resumes")
+            fetch(API_BASE + "/dashboard", { credentials: "include" }),
+            fetch(API_BASE + "/resumes", { credentials: "include" })
         ])
             .then(async ([statsResponse, resumesResponse]) => {
 
