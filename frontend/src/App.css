@@ -3288,3 +3288,9 @@ nav a:hover {
     height: 28px;
     object-fit: contain;
 }
+
+/* Authentication controls */
+.navbar-account-actions{display:flex;align-items:center;gap:12px}
+.navbar-logout{padding:10px 14px;border:1px solid #d1d5db;border-radius:9px;background:#fff;color:#374151;font:inherit;font-weight:600;cursor:pointer}
+.navbar-logout:hover{background:#f3f4f6}
+@media(max-width:768px){.navbar-account-actions{flex-wrap:wrap}.navbar-logout{font-size:13px;padding:8px 10px}}
